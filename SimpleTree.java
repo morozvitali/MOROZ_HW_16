@@ -1,29 +1,43 @@
 public class SimpleTree {
     private Node root;
-
-    public SimpleTree(Node node) {
-        this.root = root;
+    public void add(int value) {
+        root = addRecursive(root, value);
     }
 
-    public void traverseTree (Node node) {
-        System.out.println(node.getValue());
-        for (Node child : node.getChildren()) {
-            traverseTree(child);
+    private Node addRecursive(Node current, int value) {
+        if (current == null) {
+            return new Node(value);
+        }
+
+        if (value < current.value) {
+            current.left = addRecursive(current.left, value);
+        } else if (value > current.value) {
+            current.right = addRecursive(current.right, value);
+        } else {
+            // value already exists
+            return current;
+        }
+
+        return current;
+    }
+
+    public void traverseInOrder(Node node) { // ітерація по дереву
+        if (node != null) {
+            traverseInOrder(node.left);
+            System.out.print(" " + node.value);
+            traverseInOrder(node.right);
         }
     }
 
-////////////////////--MAIN--/////////////////////////
-    public static void main(String[] args) {
-        //Створення узлів
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
-        Node node3 = new Node(3);
-        //Додавання вузлів лр дерева
-        node1.addChild(node2);
-        node1.addChild(node3);
-        //
-        SimpleTree tree = new SimpleTree(node1);
-        //Виведення значень вузлів
-        tree.traverseTree(tree.root);
+    private class Node {
+        private int value;
+        private Node left;
+        private Node right;
+
+        Node(int value) {
+            this.value = value;
+            right = null;
+            left = null;
         }
     }
+}
