@@ -1,3 +1,5 @@
+package src.main.java.hillel.hw;
+
 public class SimpleTree {
     private Node root; // ключовий нод
     public void add(int value) { // додати новий нод зі значенням value
@@ -27,6 +29,10 @@ public class SimpleTree {
             System.out.print(" " + node.value);
             traverseInOrder(node.right);
         }
+    }
+
+    public Node getRoot() {
+        return root;
     }
 
     private class Node {
